@@ -9,24 +9,22 @@ use MsTech\Notifier\Tests\TestCase;
 
 class NotificationManagerTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
-        // Verify all expectations on mocks were met
-        Mockery::close();
+        Mockery::close(); // Verify all mocks
         parent::tearDown();
     }
 
-    public function test_register_and_send_notification()
+    public function test_register_and_send_notification(): void
     {
-        /** @var NotificationChannelInterface $mockChannel */
+        /** @var NotificationChannelInterface&\Mockery\MockInterface $mockChannel */
         $mockChannel = Mockery::mock(NotificationChannelInterface::class);
 
         $mockChannel->shouldReceive('send')
             ->once()
-            ->withArgs(function ($notifiable, Notification $notification) {
-                return $notification->getTitle() === 'Test' && $notifiable === 'user';
-            })
-            ->andReturn(true);
+            ->withArgs(fn($notifiable, Notification $notification) =>
+                $notification->getTitle() === 'Test' && $notifiable === 'user')
+            ->andReturnTrue();
 
         $manager = $this->app->make(NotificationManager::class);
 
@@ -36,17 +34,17 @@ class NotificationManagerTest extends TestCase
 
         $manager->send('user', $notification, ['mock']);
 
-        // Assert that expectations were met (optional since Mockery::close() will check)
+        // Prevent risky test warning
         $this->assertTrue(true);
     }
 
-    public function test_send_to_all_channels_if_none_specified()
+    public function test_send_to_all_channels_if_none_specified(): void
     {
-        /** @var NotificationChannelInterface $mockChannel1 */
+        /** @var NotificationChannelInterface&\Mockery\MockInterface $mockChannel1 */
         $mockChannel1 = Mockery::mock(NotificationChannelInterface::class);
         $mockChannel1->shouldReceive('send')->once()->andReturnTrue();
 
-        /** @var NotificationChannelInterface $mockChannel2 */
+        /** @var NotificationChannelInterface&\Mockery\MockInterface $mockChannel2 */
         $mockChannel2 = Mockery::mock(NotificationChannelInterface::class);
         $mockChannel2->shouldReceive('send')->once()->andReturnTrue();
 
@@ -59,7 +57,7 @@ class NotificationManagerTest extends TestCase
 
         $manager->send('user', $notification);
 
-        // Dummy assertion to avoid risky test
+        // Prevent risky test warning
         $this->assertTrue(true);
     }
 }
