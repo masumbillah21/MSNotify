@@ -1,0 +1,35 @@
+# Laravel & PHP
+/vendor/
+/node_modules/
+/public/storage
+/storage/*.key
+/.idea/
+/.env
+.phpunit.result.cache
+.phpunit.cache
+
+# Composer
+composer.lock
+
+# IDE & OS files
+*.log
+*.cache
+*.DS_Store
+*.vscode/
+Thumbs.db
+
+# Laravel specific
+/storage/*
+!/storage/.gitignore
+
+# Ignore compiled files
+/bootstrap/cache/*.php
+
+# Ignore system files
+*.swp
+*.swo
+*~
+
+# Ignore coverage reports
+coverage/
+.php-cover/

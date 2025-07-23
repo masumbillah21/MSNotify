@@ -1,0 +1,35 @@
+{
+  "name": "mstech/lara-notifier",
+  "description": "A Laravel package for sending notifications via multiple channels with easy extensibility.",
+  "authors": [
+    {
+      "name": "H. M. Masum Billah",
+      "email": "mbillah21@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MsTech\\Notifier\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+        "MsTech\\Notifier\\Tests\\": "tests/"
+    }
+},
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MsTech\\Notifier\\Providers\\NotifierServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^9.0|^10.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "orchestra/testbench": "^8.18"
+  }
+}
